@@ -4,11 +4,12 @@
 #include <linux/v2r/adc.h>
 #include <errno.h>
 #include <memory.h>
+#include <time.h>
 
 int main ( ) {
     int fd;
     int err;
-    
+
     fd = open("/dev/v2r_adc", O_RDWR);
 
     if (fd == -1)
@@ -90,5 +91,36 @@ int main ( ) {
         printf("   #%d - %d (0x%x)\n", i, multiple.values[i],  multiple.values[i]);
     }
 
+
+    int bnchmrk_count = 100;
+
+    printf("\nBenchmarking: read single %d times\n", bnchmrk_count);
+
+    int j;
+    single.channel = 0;
+    clock_t start = clock();
+
+    for (j = 0; j < bnchmrk_count; j++) {
+        ioctl(fd, DM365_ADC_GET_SINGLE, &single);
+    }
+
+    clock_t end = clock();
+
+    double msec_per_mesure = (double)(end-start) / CLOCKS_PER_SEC / bnchmrk_count * 1000;
+
+    printf(" %lf ms per single mesure\n", msec_per_mesure);
+
+    printf("\nBenchmarking: read block %d times\n", bnchmrk_count);
+
+    start = clock();
+    for (j = 0; j < bnchmrk_count; j++) {
+        ioctl(fd, DM365_ADC_GET_BLOCK, &block);
+    }
+    end = clock();
+
+    msec_per_mesure = (double)(end-start) / CLOCKS_PER_SEC / bnchmrk_count * 1000;
+
+    printf(" %lf ms per block mesure\n", msec_per_mesure);
+    
     close(fd);
 }
