@@ -68,5 +68,27 @@ int main ( ) {
         printf("   ADC%d=%d (0x%x)\n", i, block.values[i],  block.values[i]); 
     }
 
+    printf("\nReading multiple channels at once\n");
+
+    // Read all channes in reverse order
+    struct v2r_adc_multiple multiple;
+    multiple.count = 6;
+
+    for (i  = 0; i < sizeof(block.values) / sizeof(block.values[0]); i++) {
+        multiple.channels[i] = 5 - i;
+    }
+
+    // Read multiple
+    err = ioctl(fd, DM365_ADC_GET_MULTIPLE, &multiple);
+    if (err) {
+        printf("\nReading multiple result:%d errno:%d\n", err, errno);
+    } else {
+        printf("\nReading multiple result - OK\n");
+    }
+
+    for (i  = 0; i < multiple.count; i++) {
+        printf("   #%d - %d (0x%x)\n", i, multiple.values[i],  multiple.values[i]);
+    }
+
     close(fd);
 }
