@@ -1,3 +1,16 @@
+set(AP_SOURCE_DIR_CANDIDATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/ardupilot
+)
+
+find_path(AP_SOURCE_DIR
+    NAMES README.md
+    PATHS ${AP_SOURCE_DIR_CANDIDATE})
+
+
+if(AP_SOURCE_DIR)
+
+message("ArduPilot source code is located at ${AP_SOURCE_DIR}")
+
 set(apm_libs_sources
     ${CMAKE_CURRENT_SOURCE_DIR}/ardupilot/libraries/AP_Common/c++.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ardupilot/libraries/AP_Common/AP_Common.h
@@ -125,3 +138,7 @@ include_directories(
 add_library(ardupilot
     ${apm_libs_sources}
 )
+
+else(AP_SOURCE_DIR)
+    message("ArduPilot source code is not found at ${AP_SOURCE_DIR_CANDIDATE}")
+endif(AP_SOURCE_DIR)

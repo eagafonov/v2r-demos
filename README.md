@@ -31,10 +31,23 @@ V2R Demos
 
     #> mkdir -p /path/to/folder/wehere/demos/will/be/saved
     #> git clone https://github.com/eagafonov/v2r-demos.git
+
+#### ArduPilot
+
+http://ardupilot.com/
+
+Притырено с википедии:
+
+> ArduPilot is an open source UAV platform, able to control autonomous multicopters, fixed-wing aircraft, 
+traditional helicopters and ground rovers. It was created in 2007 by the DIY Drones community.
+It is based on the Arduino open-source electronics prototyping platform.
+
+
+Сабмодулями подтягивается код ArduPilot в <v2r-demos>/ardupilot. Код тянется с без изменения с апстрима <https://github.com/diydrones/ardupilot>
+
     #> git submodule init
     #> git submodule update
 
-Сабмодулями подтягивается код ArduPilot (TODO Сделать опциональным)
 
 Построение
 ----------
@@ -66,3 +79,8 @@ ADC ioctl test (adc/ioctl-test.c)
 Демонстрация взаимодействия с ADC использую IOCTL. Пока в официальном ядре v2r поддержки ioctl драйвером ADC нет .
 
 Реализовано тут <https://github.com/eagafonov/v2r-linux-davinci/commits/v2r-adc-ioctl>)
+
+APM
+---
+
+Темки и тестовые приложения для ArduPilot. Приложения строятся если код ArduPilot присутсвует в каталоге <v2r-demos>/ardupilot

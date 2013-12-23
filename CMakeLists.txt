@@ -6,14 +6,17 @@ set (CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g")
 
 
 include(${CMAKE_SOURCE_DIR}/settings.cmake)
-# include(${CMAKE_SOURCE_DIR}/cross.cmake)
+include(${CMAKE_SOURCE_DIR}/cross.cmake)
 
 include(${CMAKE_SOURCE_DIR}/v2r.cmake)
 
 include(apmlibs.cmake)
 
 
-# add_subdirectory(adc)
-# add_subdirectory(simple)
+add_subdirectory(adc)
+add_subdirectory(simple)
 
+# Build ArduPilot samples if the library source code is available 
+if(AP_LIBS)
 add_subdirectory(apm)
+endif(AP_LIBS)
