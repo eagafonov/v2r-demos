@@ -26,10 +26,20 @@ V2R Demos
 
 **V2R_DEMO_PATH** задаёт путь, куда файлы будут скопированы. Если он не задана,то файлы будут скопированы в домашний каталог пользователя.
 
+Исходники
+---------
+
+    #> mkdir -p /path/to/folder/wehere/demos/will/be/saved
+    #> git clone https://github.com/eagafonov/v2r-demos.git
+    #> git submodule init
+    #> git submodule update
+
+Сабмодулями подтягивается код ArduPilot (TODO Сделать опциональным)
+
 Построение
 ----------
 
-    #> cd <v2r-demo-src-root>
+    #> cd v2r-demos
     #> mkdir build
     #> cd build
     #> cmake ..
